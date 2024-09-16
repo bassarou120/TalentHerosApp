@@ -1,5 +1,5 @@
 class AppConstants{
-  static const String APP_NAME = "DBFood";
+  static const String APP_NAME = "Talent Heros";
   static const int APP_VERSION = 1;
 
   static const String BASE_URL ="http://10.0.2.2:8000";
