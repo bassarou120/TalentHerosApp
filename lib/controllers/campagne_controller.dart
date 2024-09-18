@@ -2,20 +2,27 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:talentherosapp/data/repository/popular_product_repo.dart';
+import 'package:talentherosapp/data/repository/campagne_repo.dart';
+import 'package:talentherosapp/models/campagnes_model.dart';
 import 'package:talentherosapp/utils/colors.dart';
 // import '../models/cart_model.dart';
 import '../models/products_model.dart';
+import '../models/campagnes_model.dart';
 // import 'cart_controller.dart';
 
-class PopularProductController extends GetxController{
+class CampagneController extends GetxController{
   
 
   
-  final PopularProductRepo popularProductRepo;
-  PopularProductController({required this.popularProductRepo});
-  List<ProductModel> _popularProductList=[];
-  List<ProductModel> get popularProductList =>_popularProductList;
+  final CampagneRepo campagneRepo;
+  CampagneController({required this.campagneRepo});
+  List<CampagneModel> _campagneEncoursList=[];
+  List<CampagneModel> get campagneEncoursList =>_campagneEncoursList;
+
+    List<CampagneModel> _campagneAllList=[];
+  List<CampagneModel> get campagneAllList =>_campagneAllList;
+
+
   // late CartController _cart;
 
   bool _isLoaded = false;
@@ -26,16 +33,60 @@ class PopularProductController extends GetxController{
   int _inCartItems=0;
   int get inCartItems=>_inCartItems+_quantity;
 
-  Future<void> getPopularProductList()async {
-    Response response = await popularProductRepo.getPopularProductList();
-    if(response.statusCode==200){
-      _popularProductList=[];
-      _popularProductList.addAll(Product.fromJson(response.body).products);
-      _isLoaded=true;
-      update();
-    }else{
+  Future<void> getCampagneEncoursList()async {
+    print("***************************************: ");
+
+    try{
+      Response response = await campagneRepo.getCampagneEncoursList();
+      if(response.statusCode==200){
+        _campagneEncoursList=[];
+        _campagneEncoursList.addAll(Campagne.fromJson(response.body).campagnes);
+        // _popularProductList.addAll(Product.fromJson(response.body).products);
+        _isLoaded=true;
+        update();
+      }else{
+
+        print( response.bodyString);
+      }
+    }catch(e){
+
+      print("Echec echec --------"+ e.toString());
 
     }
+
+
+
+    // print("reponse : " + response.body .toString());
+
+
+  }
+
+  Future<void> getCampagneAllList()async {
+
+
+    try{
+      Response response = await campagneRepo.getCampagneAllList();
+      if(response.statusCode==200){
+        _campagneAllList=[];
+        _campagneAllList.addAll(Campagne.fromJson(response.body).campagnes);
+        // _popularProductList.addAll(Product.fromJson(response.body).products);
+        _isLoaded=true;
+        update();
+      }else{
+
+        print( response.bodyString);
+      }
+    }catch(e){
+
+      print("Echec echec --------"+ e.toString());
+
+    }
+
+
+
+    // print("reponse : " + response.body .toString());
+
+
   }
 
 

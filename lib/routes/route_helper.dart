@@ -7,7 +7,7 @@ import 'package:talentherosapp/pages/splash/splash_page.dart';
 // import 'package:talentherosapp/pages/auth/sign_in_page.dart';
 // import 'package:talentherosapp/pages/cart/cart_page.dart';
 // import 'package:talentherosapp/pages/food/popular_food_detail.dart';
-// import 'package:talentherosapp/pages/home/main_food_page.dart';
+// import 'package:talentherosapp/pages/home/main_campagne_page.dart';
 // import 'package:talentherosapp/pages/payment/order_success_page.dart';
 // import 'package:talentherosapp/pages/payment/payment_page.dart';
 // import 'package:talentherosapp/pages/splash/splash_page.dart';

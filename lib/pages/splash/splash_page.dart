@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:talentherosapp/routes/route_helper.dart';
 import 'package:talentherosapp/utils/dimensions.dart';
+import 'package:talentherosapp/widgets/big_text.dart';
 
-import '../../controllers/popular_product_controller.dart';
+import '../../controllers/campagne_controller.dart';
 import '../../controllers/recommended_product_controller.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,7 +24,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
  late AnimationController controller;
 
  Future<void> _loadResources() async {
-   await Get.find<PopularProductController>().getPopularProductList();
+   await Get.find<CampagneController>().getCampagneEncoursList();
+   await Get.find<CampagneController>().getCampagneAllList();
    // await Get.find<RecommendedProductController>().getRecommendedProductList();
  }
 
@@ -45,8 +47,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ScaleTransition(scale: animation,
-          child: Center(child: Image.asset("assets/image/Bella verona 1.png", width: Dimensions.splashImg,))),
-          Center(child: Image.asset("assets/image/Bella verona 2.png", width: Dimensions.splashImg,))
+          child: Center(child: Image.asset("assets/image/logo_th_1.jpg", width: Dimensions.splashImg,))),
+          Center(child:  BigText(text: "TALAENT HEROES",size:25))
+          // Center(child: Image.asset("assets/image/Bella verona 2.png", width: Dimensions.splashImg,))
         ],
       ),
     );

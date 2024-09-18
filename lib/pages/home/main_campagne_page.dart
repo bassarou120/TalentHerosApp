@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:talentherosapp/utils/app_constants.dart';
 import 'package:talentherosapp/widgets/big_text.dart';
 import 'package:talentherosapp/widgets/small_text.dart';
-import '../../controllers/popular_product_controller.dart';
+import '../../controllers/campagne_controller.dart';
 import '../../controllers/recommended_product_controller.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
-// import '/widgets/big_text.dart';
-// import '/widgets/small_text.dart';
-import 'food_page_body.dart';
+import '/widgets/big_text.dart';
+import '/widgets/small_text.dart';
+import 'campagne_page_body.dart';
 
-class MainFoodPage extends StatefulWidget {
-  const MainFoodPage({Key? key}) : super(key: key);
+class MainCampagnePage extends StatefulWidget {
+  const MainCampagnePage({Key? key}) : super(key: key);
 
   @override
-  State<MainFoodPage> createState() => _MainFoodPageState();
+  State<MainCampagnePage> createState() => _MainCampagnePageState();
 }
 
-class _MainFoodPageState extends State<MainFoodPage> {
+class _MainCampagnePageState extends State<MainCampagnePage> {
   Future<void> _loadResources() async {
-    await Get.find<PopularProductController>().getPopularProductList();
+    await Get.find<CampagneController>().getCampagneEncoursList();
+    await Get.find<CampagneController>().getCampagneAllList();
     // await Get.find<RecommendedProductController>().getRecommendedProductList();
   }
 
@@ -38,7 +40,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
               children: [
                 Column(
                   children: [
-                    BigText(text:"Talent Heros", color:AppColors.mainColor),
+                    BigText(text:AppConstants.APP_NAME, color:AppColors.mainColor),
                     // Row(
                     //   children: [
                     //     SmallText(text: "Ja ela", color: Colors.black54,),
@@ -66,7 +68,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
         ),
         //Showing the body
         Expanded(child: SingleChildScrollView(
-          child: FoodPageBody(),
+          child: CampagnePageBody(),
         )),
       ],
     ),

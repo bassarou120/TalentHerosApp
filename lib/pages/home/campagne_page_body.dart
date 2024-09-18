@@ -2,11 +2,13 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:talentherosapp/controllers/popular_product_controller.dart';
+import 'package:talentherosapp/controllers/campagne_controller.dart';
+import 'package:talentherosapp/models/campagnes_model.dart';
 import 'package:talentherosapp/models/products_model.dart';
 import 'package:talentherosapp/utils/app_constants.dart';
-// import 'package:talentherosapp/widgets/big_text.dart';
-// import 'package:talentherosapp/widgets/small_text.dart';
+import 'package:talentherosapp/widgets/big_text.dart';
+import 'package:talentherosapp/widgets/icon_and_text_widget.dart';
+import 'package:talentherosapp/widgets/small_text.dart';
 import '../../controllers/recommended_product_controller.dart';
 import '../../routes/route_helper.dart';
 import '../../utils/colors.dart';
@@ -14,14 +16,14 @@ import '../../utils/dimensions.dart';
 import '../../widgets/app_column.dart';
 // import '/widgets/icon_and_text_widget.dart';
 
-class FoodPageBody extends StatefulWidget {
-  const FoodPageBody({Key? key}) : super(key: key);
+class CampagnePageBody extends StatefulWidget {
+  const CampagnePageBody({Key? key}) : super(key: key);
 
   @override
-  State<FoodPageBody> createState() => _FoodPageBodyState();
+  State<CampagnePageBody> createState() => _CampagnePageBodyState();
 }
 
-class _FoodPageBodyState extends State<FoodPageBody> {
+class _CampagnePageBodyState extends State<CampagnePageBody> {
   PageController pageController = PageController(viewportFraction: 0.85);
   var _currPageValue=0.0;
   double _scaleFactor=0.8;
@@ -51,16 +53,16 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
 
         //slider section
-        GetBuilder<PopularProductController>(builder: (popularProducts){
-          return popularProducts.isLoaded?Container(
+        GetBuilder<CampagneController>(builder: (campagneEncours){
+          return campagneEncours.isLoaded?Container(
             //color: Colors.redAccent,
             height: Dimensions.pageView,
 
               child: PageView.builder(
                   controller: pageController,
-                  itemCount: popularProducts.popularProductList.length,
+                  itemCount: campagneEncours.campagneEncoursList.length,
                   itemBuilder: (context, position){
-                    return _buildPageItem(position, popularProducts.popularProductList[position]);
+                    return _buildPageItem(position, campagneEncours.campagneEncoursList[position]);
                   }),
 
           ):CircularProgressIndicator(
@@ -68,11 +70,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           );
         }),
 
-        /*
+
         //dots
-        GetBuilder<PopularProductController>(builder: (popularProducts){
+        GetBuilder<CampagneController>(builder: (campagneEncours){
           return DotsIndicator(
-            dotsCount: popularProducts.popularProductList.isEmpty?1:popularProducts.popularProductList.length,
+            dotsCount: campagneEncours.campagneEncoursList.isEmpty?1:campagneEncours.campagneEncoursList.length,
             position: _currPageValue,
             decorator: DotsDecorator(
               activeColor: AppColors.mainColor,
@@ -83,8 +85,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           );
         }),
 
-          */
-          /*
+          
+
         //Popular text
         SizedBox(height: Dimensions.height30,),
         Container(
@@ -92,7 +94,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              BigText(text: "Recommended"),
+              BigText(text: "Toutes les campagnes",size: 17,),
               SizedBox(width: Dimensions.width10,),
               Container(
                 margin: const EdgeInsets.only(bottom: 1),
@@ -101,20 +103,22 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               SizedBox(width: Dimensions.width10,),
               Container(
                 margin: const EdgeInsets.only(bottom: 2),
-                child: SmallText(text: "Food pairing",),
+                child: SmallText(text: "plus récente",),
               )
 
             ],
           ),
         ),
-        //recommended food
+
+
+        //toute les campagne
         //list of food and images
 
-          GetBuilder<RecommendedProductController>(builder: (recommendedProduct){
-            return recommendedProduct.isLoaded?ListView.builder(
+          GetBuilder<CampagneController>(builder: (top20capmage){
+            return top20capmage.isLoaded?ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: recommendedProduct.recommendedProductList.length,
+                itemCount: top20capmage.campagneAllList.length,
                 itemBuilder: (context, index){
                   return GestureDetector(
                     onTap: (){
@@ -130,11 +134,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                             height: Dimensions.listViewImgSize,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(Dimensions.radius20),
-                                color: Colors.white38,
+                                color:Color(0xFF69c5df),
                                 image: DecorationImage(
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                     image: NetworkImage(
-                                        AppConstants.BASE_URL+AppConstants.UPLOAD_URL+recommendedProduct.recommendedProductList[index].img!
+                                        AppConstants.BASE_URL+AppConstants.UPLOAD_URL+top20capmage.campagneAllList[index].image!
                                     )
                                 )
                             ),
@@ -142,7 +146,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                           //text container
                           Expanded(
                             child: Container(
-                              height: Dimensions.listViewTextContSize,
+                              height: Dimensions.listViewTextContSize+5,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(Dimensions.radius20),
@@ -156,22 +160,25 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    BigText(text:recommendedProduct.recommendedProductList[index].name!),
-                                    SizedBox(height: Dimensions.height10,),
-                                    SmallText(text: "Bella Additional Special"),
-                                    SizedBox(height: Dimensions.height10,),
+                                    BigText(text:top20capmage.campagneAllList[index].titre!,size: 17,),
+                                    SizedBox(height: Dimensions.height10-5,),
+                                    SmallText(text: top20capmage.campagneAllList[index].visibilite!),
+                                    SizedBox(height: Dimensions.height10-5,),
 
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         IconAndTextWidget(icon: Icons.circle_sharp,
-                                            text: "Normal",
-                                            iconColor: AppColors.iconColor1),
-                                        IconAndTextWidget(icon: Icons.location_on,
-                                            text: "1.7km",
-                                            iconColor: AppColors.mainColor),
+                                            text: top20capmage.campagneAllList[index].status!,
+                                            iconColor: top20capmage.campagneAllList[index].status=="EN COURS" ? AppColors.ColorGreen:AppColors.ColorRead,
+                                          size: 8,
+                                        ),
+                                        // IconAndTextWidget(icon: Icons.location_on,
+                                        //     text: "1.7km",
+                                        //     iconColor: AppColors.mainColor),
                                         IconAndTextWidget(icon: Icons.access_time_rounded,
-                                            text: "32min",
+                                            size: 8,
+                                            text:  top20capmage.campagneAllList[index].date_fin!,
                                             iconColor: AppColors.iconColor2),
                                       ],
                                     )
@@ -188,13 +195,13 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               color: AppColors.mainColor,
             );
           })
-        */
+
       ],
     );
   }
 
 
-  Widget _buildPageItem(int index, ProductModel popularProduct){
+  Widget _buildPageItem(int index, CampagneModel campagneEncours){
     Matrix4 matrix = new Matrix4.identity();
     if(index==_currPageValue.floor()){
       var currScale = 1-(_currPageValue-index)*(1-_scaleFactor);
@@ -229,16 +236,17 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             },
             child: Container(
               height: Dimensions.pageViewContainer,
-              margin: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
+              margin: EdgeInsets.only(left: Dimensions.width9, right: Dimensions.width9),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   color: index.isEven?Color(0xFF69c5df):Color(0xFF9294cc),
                   image: DecorationImage(
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                       image: NetworkImage(
-                            AppConstants.BASE_URL+AppConstants.UPLOAD_URL+popularProduct.img!
+                            AppConstants.BASE_URL+AppConstants.UPLOAD_URL+campagneEncours.image!
                       )
                   )
+
               ),
             ),
           ),
@@ -246,14 +254,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: Dimensions.pageViewTextContainer,
-              margin: EdgeInsets.only(left: Dimensions.width30, right: Dimensions.width30, bottom: Dimensions.height30),
+              margin: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10, bottom: Dimensions.height20),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
                   color: Colors.white,
                 boxShadow: [
                   BoxShadow(
                     color: Color(0xFFe8e8e8),
-                    blurRadius: 5.0,
+                    blurRadius: 3.0,
                     offset: Offset(0, 5)
                   ),
                   BoxShadow(
@@ -268,7 +276,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               ),
               child: Container(
                 padding: EdgeInsets.only(top: Dimensions.height15, left: 15, right: 15),
-                child: AppColumn(text:popularProduct.name!),
+                child: AppColumn(text:campagneEncours.titre!,nbr_particiapant: "0",expire_date: campagneEncours.date_fin!,visibilite:campagneEncours.visibilite! ,),
               ),
 
             ),

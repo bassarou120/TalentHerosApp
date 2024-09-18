@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:talentherosapp/controllers/popular_product_controller.dart';
+import 'package:talentherosapp/controllers/campagne_controller.dart';
 import 'package:talentherosapp/routes/route_helper.dart';
 import 'package:talentherosapp/utils/colors.dart';
 import 'helper/dependencies.dart' as dep;
@@ -21,11 +21,11 @@ class MyApp extends StatelessWidget {
     // Get.find<CartController>().getCartData();
 
     //
-    return GetBuilder<PopularProductController>(builder:  (_){
+    return GetBuilder<CampagneController>(builder:  (_){
     //   return GetBuilder<RecommendedProductController>(builder: (_){
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Talent Heros',
+          title: 'Talent Heroes',
 
           //home: const SignInPage(),
           initialRoute: RouteHelper.getSplashPage(),

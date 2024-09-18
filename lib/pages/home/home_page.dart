@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talentherosapp/pages/home/main_campagne_page.dart';
 // import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 // import 'package:talentherosapp/pages/auth/sign_up_page.dart';
 // import 'package:talentherosapp/pages/cart/cart_history.dart';
@@ -8,7 +9,7 @@ import 'package:talentherosapp/utils/colors.dart';
 
 // import '../account/account_page.dart';
 // import '../auth/sign_in_page.dart';
-import 'main_food_page.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
 
 
   List pages=[
-    MainFoodPage(),
+    MainCampagnePage(),
     // OrderPage(),
     // CartHistory(),
     // AccountPage(),
