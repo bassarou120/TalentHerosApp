@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talentherosapp/pages/account/account_page.dart';
 import 'package:talentherosapp/pages/home/main_campagne_page.dart';
 // import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 // import 'package:talentherosapp/pages/auth/sign_up_page.dart';
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     MainCampagnePage(),
     // OrderPage(),
     // CartHistory(),
-    // AccountPage(),
+    AccountPage(),
   ];
   void onTapNav(int index){
 setState(() {
@@ -97,11 +98,11 @@ setState(() {
             label: "home"
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.archive),
+              icon: Icon(Icons.emergency_recording),
               label: "history"
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
+              icon: Icon(Icons.emoji_events_outlined),
               label: "cart"
           ),
           BottomNavigationBarItem(

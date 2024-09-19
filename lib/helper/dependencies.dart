@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:talentherosapp/controllers/auth_controller.dart';
 import 'package:talentherosapp/controllers/campagne_controller.dart';
+import 'package:talentherosapp/controllers/user_controller.dart';
 import 'package:talentherosapp/data/api/api_client.dart';
 import 'package:talentherosapp/data/repository/auth_repo.dart';
 import 'package:talentherosapp/data/repository/campagne_repo.dart';
@@ -46,8 +48,8 @@ Future<void> init()async {
 
   //controllers
   Get.lazyPut(()=>CampagneController(campagneRepo:Get.find()));
-  // Get.lazyPut(()=>AuthController(authRepo: Get.find()));
-  // Get.lazyPut(()=>UserController(userRepo: Get.find()));
+  Get.lazyPut(()=>AuthController(authRepo: Get.find()));
+  Get.lazyPut(()=>UserController(userRepo: Get.find()));
   // Get.lazyPut(()=>PopularProductController(popularProductRepo:Get.find()));
   // Get.lazyPut(()=>RecommendedProductController(recommendedProductRepo:Get.find()));
   // Get.lazyPut(()=>CartController(cartRepo: Get.find()));
