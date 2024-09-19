@@ -4,6 +4,8 @@ import 'package:talentherosapp/controllers/campagne_controller.dart';
 import 'package:talentherosapp/utils/app_constants.dart';
 import 'package:talentherosapp/utils/colors.dart';
 import 'package:talentherosapp/utils/dimensions.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class CampagneDescriptionPage extends StatelessWidget {
   final int campagneId;
@@ -186,7 +188,17 @@ class CampagneDescriptionPage extends StatelessWidget {
   void showPostulerDialog(BuildContext context) {
   // Initialisation des contrôleurs de texte
   TextEditingController descriptionController = TextEditingController();
-  TextEditingController videoUrlController = TextEditingController();
+  File? videoFile;
+
+  final ImagePicker _picker = ImagePicker();
+
+  // Fonction pour choisir une vidéo depuis la galerie
+  Future<void> _pickVideo() async {
+    final XFile? pickedFile = await _picker.pickVideo(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      videoFile = File(pickedFile.path);
+    }
+  }
 
   showDialog(
     context: context,
@@ -205,22 +217,18 @@ class CampagneDescriptionPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Champ pour l'URL de la vidéo
-              TextField(
-                controller: videoUrlController,
-                decoration: InputDecoration(
-                  labelText: 'URL de la vidéo',
-                  labelStyle: TextStyle(color: AppColors.mainBlackColor),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: AppColors.mainColor),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: AppColors.mainColor),
-                  ),
-                ),
+              // Bouton pour sélectionner la vidéo
+              ElevatedButton(
+                onPressed: _pickVideo,
+                child: Text('Sélectionner une vidéo'),
               ),
+              const SizedBox(height: 10),
+              // Afficher le nom du fichier sélectionné
+              if (videoFile != null)
+                Text(
+                  'Vidéo sélectionnée: ${videoFile!.path.split('/').last}',
+                  style: TextStyle(color: AppColors.mainBlackColor),
+                ),
               const SizedBox(height: 10),
               // Champ pour la description
               TextField(
@@ -246,13 +254,13 @@ class CampagneDescriptionPage extends StatelessWidget {
           // Bouton "Envoyer"
           InkWell(
             onTap: () {
-              // Récupérer les valeurs des champs de texte lorsque l'utilisateur appuie sur le bouton
-              String videoUrl = videoUrlController.text;
+              // Récupérer les valeurs des champs de texte et le fichier vidéo lorsque l'utilisateur appuie sur le bouton
               String description = descriptionController.text;
-              print('URL de la vidéo: $videoUrl');
               print('Description: $description');
-              
-              // Ajoutez votre logique pour envoyer les données ici
+              if (videoFile != null) {
+                print('Vidéo sélectionnée: ${videoFile!.path}');
+                // Ajoutez votre logique pour envoyer les données ici
+              }
               
               Navigator.of(context).pop(); // Fermer le dialogue
             },
@@ -278,5 +286,4 @@ class CampagneDescriptionPage extends StatelessWidget {
     },
   );
 }
-
 }
