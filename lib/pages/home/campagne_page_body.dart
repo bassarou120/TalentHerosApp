@@ -120,9 +120,11 @@ class _CampagnePageBodyState extends State<CampagnePageBody> {
                 shrinkWrap: true,
                 itemCount: top20capmage.campagneAllList.length,
                 itemBuilder: (context, index){
+
+                  final campagne = top20capmage.campagneAllList[index];
                   return GestureDetector(
                     onTap: (){
-                      Get.toNamed(RouteHelper.getRecommendedFood(index, "home"));
+                      Get.toNamed(RouteHelper.getCampagneDescription(campagne.id!));
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20, bottom: Dimensions.height10),
@@ -232,7 +234,7 @@ class _CampagnePageBodyState extends State<CampagnePageBody> {
           GestureDetector(
             onTap: (){
 
-              Get.toNamed(RouteHelper.getPopularFood(index, "home"));
+              Get.toNamed(RouteHelper.getCampagneDescription(campagneEncours.id!));
             },
             child: Container(
               height: Dimensions.pageViewContainer,

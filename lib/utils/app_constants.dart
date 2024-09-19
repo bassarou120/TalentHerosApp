@@ -3,11 +3,12 @@ class AppConstants{
   static const int APP_VERSION = 1;
 
   // static const String BASE_URL ="http://192.168.148.29:8001";
-  static const String BASE_URL ="http://192.168.100.2:8001";
+  static const String BASE_URL ="http://192.168.12.239:8000";
 
   static const String CAMPAGNE_ALL_URI= "/api/campagnes";
   static const String CAMPAGNE_ENCOURS_URI= "/api/campagnes/encours";
   static const String UPLOAD_URL = "/storage";
+  static const String CAMPAGNE_BY_ID = "/api/campagne";
 
 
 
