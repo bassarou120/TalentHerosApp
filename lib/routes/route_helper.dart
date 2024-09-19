@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:talentherosapp/pages/auth/sign_in_page.dart';
 import 'package:talentherosapp/pages/splash/splash_page.dart';
 // import 'package:talentherosapp/pages/address/pick_address_map.dart';
 // import 'package:talentherosapp/pages/auth/sign_in_page.dart';
@@ -35,10 +36,19 @@ class RouteHelper {
   static String getCampagneDescription(int campagneId) => '$campagneDescription?id=$campagneId';
   static String getSplashPage()=> '$splashPage';
   static String getInitial()=>'$initial';
+  static String getSignInPage()=>'$signIn';
+
   static String getPopularFood(int pageId, String page)=>'$popularFood?pageId=$pageId&page=$page';
+
+
+
+
+
+
+
   static String getRecommendedFood(int pageId, String page)=>'$recommendedFood?pageId=$pageId&page=$page';
   static String getCartPage()=>'$cartPage';
-  static String getSignInPage()=>'$signIn';
+
   static String getAddressPage()=>'$addAddress';
   static String getPickAddressPage()=>'$pickAddressMap';
   static String getPaymentPage(String id, int userID)=>'$payment?id=$id&userID=$userID';
@@ -65,11 +75,10 @@ class RouteHelper {
       },
     ),
     
-    // GetPage(name: signIn, page: (){
-    //
-    //   return SignInPage();
-    // }, transition: Transition.fade),
-    //
+    GetPage(name: signIn, page: (){
+      return SignInPage();
+    }, transition: Transition.fade),
+
     // GetPage(name: popularFood, page:(){
     //   var pageId=Get.parameters['pageId'];
     //   var page = Get.parameters["page"];
