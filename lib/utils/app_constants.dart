@@ -8,6 +8,7 @@ class AppConstants{
   static const String CAMPAGNE_ALL_URI= "/api/campagnes";
   static const String CAMPAGNE_ENCOURS_URI= "/api/campagnes/encours";
   static const String UPLOAD_URL = "/storage";
+  static const String CAMPAGNE_BY_ID = "/api/campagne";
 
 
 

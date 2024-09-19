@@ -56,8 +56,10 @@ class CampagneModel {
       this.created_at,
       this.updated_at});
 
-
-
+  @override
+  String toString() {
+    return 'CampagneModel{id: $id, titre: $titre, description: $description, dateDebut: $date_debut, dateFin: $date_fin, image: $image, visibilite: $visibilite, status: $status}';
+  }
 
   CampagneModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

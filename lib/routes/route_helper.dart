@@ -16,6 +16,7 @@ import 'package:talentherosapp/pages/splash/splash_page.dart';
 // import '../models/order_model.dart';
 // import '../pages/address/add_address_page.dart';
 // import '../pages/food/recommended_food_detail.dart';
+import '../pages/home/campagneDescriptionPage.dart';
 import '../pages/home/home_page.dart';
 
 class RouteHelper {
@@ -30,8 +31,9 @@ class RouteHelper {
   static const String pickAddressMap="/pick-address";
   static const String payment='/payment';
   static const String orderSuccess='/order-successful';
+  static const String campagneDescription = '/campagne-description';
 
-
+  static String getCampagneDescription(int campagneId) => '$campagneDescription?id=$campagneId';
   static String getSplashPage()=> '$splashPage';
   static String getInitial()=>'$initial';
   static String getSignInPage()=>'$signIn';
@@ -64,6 +66,14 @@ class RouteHelper {
     GetPage(name: initial, page: (){
       return HomePage();
     }, transition: Transition.fade),
+
+    GetPage(
+      name: campagneDescription,
+      page: () {
+        final id = Get.parameters['id'];
+        return CampagneDescriptionPage(campagneId: int.parse(id ?? '0'));
+      },
+    ),
     
     GetPage(name: signIn, page: (){
       return SignInPage();

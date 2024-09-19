@@ -26,4 +26,20 @@ class CampagneRepo extends GetxService{
     // return await apiClient.getData(AppConstants.POPULAR_PRODUCT_URI);
 
   }
+
+  // Future <Response> getCampagneById(int id) async{
+
+  //   // print(AppConstants.BASE_URL+AppConstants.CAMPAGNE_ENCOURS_URI);
+
+  //   return await apiClient.getData(AppConstants.CAMPAGNE_BY_ID );
+  //   // return await apiClient.getData(AppConstants.POPULAR_PRODUCT_URI);
+
+  // }
+
+  Future<Response> getCampagneById(int id) async {
+  // Remplacer dynamiquement {id} dans l'URL par l'ID de la campagne
+  String url = '${AppConstants.CAMPAGNE_BY_ID}/$id';
+  return await apiClient.getData(url);
+}
+
 }

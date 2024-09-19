@@ -24,7 +24,7 @@ class CampagneController extends GetxController{
 
 
   // late CartController _cart;
-
+  CampagneModel? campagne;
   bool _isLoaded = false;
   bool get isLoaded=>_isLoaded;
 
@@ -88,6 +88,31 @@ class CampagneController extends GetxController{
 
 
   }
+
+  Future<void> getCampagneById(int id) async {
+  print("***************************************: Fetching campagne with ID $id");
+
+  try {
+    Response response = await campagneRepo.getCampagneById(id);
+    
+    if (response.statusCode == 200) {
+      // Extraire l'objet 'campagne' du corps de la réponse
+      var campagneData = response.body['campagne'];
+      
+      // Convertir l'objet 'campagne' en CampagneModel
+      campagne = CampagneModel.fromJson(campagneData);
+      print("Campagne récupérée: $campagne");
+      _isLoaded = true; 
+      update();  
+    } else {
+      print("Erreur: ${response.bodyString}");
+    }
+  } catch (e) {
+    print("Erreur lors de la récupération de la campagne: " + e.toString());
+  }
+}
+
+  
 
 
   void setQuantity(bool isIncrement){
