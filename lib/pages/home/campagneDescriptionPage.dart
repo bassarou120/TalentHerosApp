@@ -79,7 +79,8 @@ class CampagneDescriptionPage extends StatelessWidget {
                               Icon(
                                 Icons.circle,
                                 color: campagne.status == "EN COURS"
-                                    ? AppColors.ColorGreen:AppColors.ColorRead,
+                                    ? AppColors.ColorGreen
+                                    : AppColors.ColorRead,
                                 size: Dimensions.iconSize16,
                               ),
                               SizedBox(width: Dimensions.width10),
@@ -90,15 +91,14 @@ class CampagneDescriptionPage extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: Dimensions.font16,
                                   color: campagne.status == "EN COURS"
-                                      ? AppColors.ColorGreen:AppColors.ColorRead,
+                                      ? AppColors.ColorGreen
+                                      : AppColors.ColorRead,
                                 ),
                               ),
                               SizedBox(width: Dimensions.width30),
-                              Icon(
-                                Icons.access_time_rounded,
-                                size: Dimensions.iconSize16,
-                                color: AppColors.iconColor2
-                              ),
+                              Icon(Icons.access_time_rounded,
+                                  size: Dimensions.iconSize16,
+                                  color: AppColors.iconColor2),
                               SizedBox(width: Dimensions.width10),
                               Text(
                                 'Date de fin: ${campagne.date_fin}',
@@ -111,10 +111,9 @@ class CampagneDescriptionPage extends StatelessWidget {
                           Text(
                             'Description :',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.titleColor
-                            ),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.titleColor),
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -151,7 +150,7 @@ class CampagneDescriptionPage extends StatelessWidget {
       }),
       bottomNavigationBar: Container(
         height: 70,
-        padding: const EdgeInsets.only(right: 20, left: 20, bottom: 20 ),
+        padding: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
         color: Colors.white,
         child: Row(
           children: [
@@ -159,7 +158,7 @@ class CampagneDescriptionPage extends StatelessWidget {
             Expanded(
               child: InkWell(
                 onTap: () {
-                  // Logique pour postuler à la campagne
+                  showPostulerDialog(context);
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -183,4 +182,101 @@ class CampagneDescriptionPage extends StatelessWidget {
       ),
     );
   }
+
+  void showPostulerDialog(BuildContext context) {
+  // Initialisation des contrôleurs de texte
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController videoUrlController = TextEditingController();
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          'Postuler à la Campagne',
+          style: TextStyle(
+            color: AppColors.mainBlackColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        content: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Champ pour l'URL de la vidéo
+              TextField(
+                controller: videoUrlController,
+                decoration: InputDecoration(
+                  labelText: 'URL de la vidéo',
+                  labelStyle: TextStyle(color: AppColors.mainBlackColor),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColors.mainColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColors.mainColor),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              // Champ pour la description
+              TextField(
+                controller: descriptionController,
+                decoration: InputDecoration(
+                  labelText: 'Description',
+                  labelStyle: TextStyle(color: AppColors.mainBlackColor),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColors.mainColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColors.mainColor),
+                  ),
+                ),
+                maxLines: 3,
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          // Bouton "Envoyer"
+          InkWell(
+            onTap: () {
+              // Récupérer les valeurs des champs de texte lorsque l'utilisateur appuie sur le bouton
+              String videoUrl = videoUrlController.text;
+              String description = descriptionController.text;
+              print('URL de la vidéo: $videoUrl');
+              print('Description: $description');
+              
+              // Ajoutez votre logique pour envoyer les données ici
+              
+              Navigator.of(context).pop(); // Fermer le dialogue
+            },
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                color: AppColors.mainColor,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Text(
+                'Envoyer',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 }
