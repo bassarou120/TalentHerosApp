@@ -20,10 +20,14 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
+
     if(_userLoggedIn){
       Get.find<UserController>().getUserInfo();
     }
+
+
     return Scaffold(
       appBar: CustomAppBar(title: "Profile",),
       body: GetBuilder<UserController>(builder: (userController){
@@ -53,7 +57,7 @@ class AccountPage extends StatelessWidget {
                           iconSize: Dimensions.height10*5/2,
                           size: Dimensions.height10*5,),
 
-                        bigText: BigText(text: userController.userModel!.name,)
+                        bigText: BigText(text: userController.userModel!.name!,)
                         ,),
                       SizedBox(height: Dimensions.height20,),
                       //phone
@@ -64,7 +68,7 @@ class AccountPage extends StatelessWidget {
                           iconSize: Dimensions.height10*5/2,
                           size: Dimensions.height10*5,),
 
-                        bigText: BigText(text: userController.userModel!.phone,)
+                        bigText: BigText(text: userController.userModel!.telephone!,)
                         ,),
                       SizedBox(height: Dimensions.height20,),
                       //email
@@ -75,7 +79,7 @@ class AccountPage extends StatelessWidget {
                           iconSize: Dimensions.height10*5/2,
                           size: Dimensions.height10*5,),
 
-                        bigText: BigText(text: userController.userModel!.email,)
+                        bigText: BigText(text: userController.userModel!.email!,)
                         ,),
                       SizedBox(height: Dimensions.height20,),
                       //address

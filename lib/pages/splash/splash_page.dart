@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:talentherosapp/controllers/auth_controller.dart';
 import 'package:talentherosapp/routes/route_helper.dart';
 import 'package:talentherosapp/utils/dimensions.dart';
 import 'package:talentherosapp/widgets/big_text.dart';
@@ -36,7 +37,20 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
    controller =  AnimationController(vsync: this,duration: const Duration(seconds: 3))..forward();
    animation =  CurvedAnimation(parent: controller, curve: Curves.linear);
 
-   Timer(const Duration(seconds: 5), ()=>Get.offNamed(RouteHelper.getInitial()));
+   Timer(const Duration(seconds: 5), () {
+     bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
+
+     if(_userLoggedIn){
+       Get.offNamed(RouteHelper.getInitial());
+     }else{
+       Get.offNamed(RouteHelper.getSignInPage());
+     }
+
+
+
+   }
+
+   );
 
  }
   @override

@@ -25,8 +25,16 @@ class AuthRepo{
     return await sharedPreferences.getString(AppConstants.TOKEN)??"None";
   }
 
-  Future <Response> login(String phone, String password) async{
+  Future <Response> loginPhone(String phone, String password) async{
     return await apiClient.postData(AppConstants.LOGIN_URI, {"phone":phone, "password":password});
+  }
+
+  Future <Response> loginEmail(String email, String password) async{
+    return await apiClient.postData(AppConstants.LOGIN_URI, {"email":email, "password":password});
+  }
+
+  Future <Response> getPays( ) async{
+    return await apiClient.get(AppConstants.PAYS_ALL_URI );
   }
 
   Future<bool>saveUserToken(String token) async {

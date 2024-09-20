@@ -2,13 +2,19 @@ class AppConstants{
   static const String APP_NAME = "Talent Heroes";
   static const int APP_VERSION = 1;
 
-  static const String BASE_URL ="http://192.168.148.29:8001";
-  // static const String BASE_URL ="http://192.168.100.2:8001";
+  // static const String BASE_URL ="http://192.168.20.29:8001";
+  static const String BASE_URL ="http://192.168.100.2:8001";
 
+  static const String PAYS_ALL_URI= "/api/pays";
   static const String CAMPAGNE_ALL_URI= "/api/campagnes";
   static const String CAMPAGNE_ENCOURS_URI= "/api/campagnes/encours";
   static const String UPLOAD_URL = "/storage";
   static const String CAMPAGNE_BY_ID = "/api/campagne";
+
+  //use and auth endpoints
+  static const String REGISTRATION_URI= "/api/auth/register";
+  static const String LOGIN_URI= "/api/auth/login";
+  static const String USER_INFO_URI = "/api/customer/info";
 
 
 
@@ -23,10 +29,7 @@ class AppConstants{
   //static const String DRINKS_URI= "/api/v1/products/drinks";
   // static const String UPLOAD_URL = "/uploads/";
 
-  //use and auth endpoints
-  static const String REGISTRATION_URI= "/api/v1/auth/register";
-  static const String LOGIN_URI= "/api/v1/auth/login";
-  static const String USER_INFO_URI = "/api/v1/customer/info";
+
 
   //Location constraints
   static const String USER_ADDRESS= "user-address";

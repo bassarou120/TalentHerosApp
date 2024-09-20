@@ -8,8 +8,11 @@ import 'package:talentherosapp/routes/route_helper.dart';
 import 'package:talentherosapp/utils/app_constants.dart';
 import 'package:talentherosapp/utils/colors.dart';
 import 'package:talentherosapp/utils/dimensions.dart';
+import 'package:talentherosapp/widgets/app_select_field.dart';
 import 'package:talentherosapp/widgets/app_text_field.dart';
+import 'package:talentherosapp/widgets/app_text_field_phone.dart';
 import 'package:talentherosapp/widgets/big_text.dart';
+import 'package:select_form_field/select_form_field.dart';
 
 import '../../base/show_custom_snackbar.dart';
 import '../../controllers/auth_controller.dart';
@@ -19,8 +22,17 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var nomController = TextEditingController();
+    var prenomController = TextEditingController();
     var emailController = TextEditingController();
+    var telephoneController = TextEditingController();
     var passwordController = TextEditingController();
+    var paysController = TextEditingController();
+    var genreController = TextEditingController();
+
+var selectedTelephone="";
+
     var nameController = TextEditingController();
     var phoneController = TextEditingController();
     var signUpImages = [
@@ -28,44 +40,77 @@ class SignUpPage extends StatelessWidget {
       "f.png",
       "g.png",
     ];
+
+    final List<Map<String, dynamic>> _itemsSexe = [
+      {
+        'value': 'Homme',
+        'label': 'Homme',
+        'icon': Icon(Icons.man),
+      },
+      {
+        'value': 'Femme',
+        'label': 'Femme',
+        'icon': Icon(Icons.woman),
+
+      },
+
+    ];
+
+    final AuthController authController= Get.find();
+    authController.getPays();
+    // print(authController.paysAllList);
+
+
     void _registration(AuthController authController){
 
-      String name = nameController.text.trim();
-      String phone = phoneController.text.trim();
-      String email = emailController.text.trim();
-      String password = passwordController.text.trim();
+     String nom = nomController.text.trim();
+     String prenom  = prenomController.text.trim();
+     String  email  = emailController.text.trim();
+     String telephone   = selectedTelephone;
+     String password = passwordController.text.trim();
+     String pays  = paysController.text.trim();
+     String genre  = genreController.text.trim();
 
-      if(name.isEmpty){
-        showCustomSnackBar("Type in your name", title: "Name");
 
-      }else if(phone.isEmpty){
-        showCustomSnackBar("Type in your phone number", title: "Phone number");
+      // String name = nameController.text.trim();
+      // String phone = phoneController.text.trim();
+      // String email = emailController.text.trim();
+      // String password = passwordController.text.trim();
 
+      if(nom.isEmpty){
+        showCustomSnackBar("Veuillez saisie le nom SVP!", title: "Nom");
+
+      }else if(prenom.isEmpty){
+        showCustomSnackBar("Veuillez saisie le prénom SVP!", title: "prénom");
       }else if(email.isEmpty){
-        showCustomSnackBar("Type in your email address", title: "Email address");
-
+        showCustomSnackBar("Veuillez saisie l'email' SVP!", title: "email");
       }else if(!GetUtils.isEmail(email)){
-        showCustomSnackBar("Type in a valid email address", title: "Valid email address");
-
-      }else if(password.isEmpty){
-        showCustomSnackBar("Type in your password", title: "password");
-
+        showCustomSnackBar("Veuillez saisie le email SVP!", title: "email");
+      }else if(telephone.isEmpty){
+        showCustomSnackBar("Veuillez saisie  le pay SVP!", title: "Pays");
       }else if(password.length<6){
-        showCustomSnackBar("Password cannot be less than six characters", title: "Password");
-
+        showCustomSnackBar("Le mot de passe  doit despasser 6 valeur", title: "Nom");
       }else{
 
         SignUpBody signUpBody = SignUpBody(
-            name: name,
-            phone: phone,
-            email: email,
-            password: password);
+            nom: nom  ,
+            prenom: prenom  ,
+            email:  email  ,
+            telephone: telephone  ,
+            password: password ,
+            pays: pays ,
+            genre: genre  );
+
+        print(signUpBody);
+
+
         authController.registration(signUpBody).then((status){
           if(status.isSuccess){
           print("Success registration");
-          Get.offNamed(RouteHelper.getInitial());
+          showCustomSnackBar("Inscription réussie",duree: 20);
+          Get.offNamed(RouteHelper.getSignInPage());
           }else{
-           showCustomSnackBar(status.message);
+           showCustomSnackBar(status.message,duree: 20);
           }
         });
       }
@@ -114,11 +159,11 @@ class SignUpPage extends StatelessWidget {
                   ),
                 ),
 
-                AppTextField(textController: nameController,
+                AppTextField(textController: nomController,
                     hintText: "Nom",
                     icon: Icons.person),
                 SizedBox(height: Dimensions.height20,),
-                AppTextField(textController: nameController,
+                AppTextField(textController: prenomController,
                     hintText: "Prénom",
                     icon: Icons.person),
                 SizedBox(height: Dimensions.height20,),
@@ -128,21 +173,46 @@ class SignUpPage extends StatelessWidget {
                 AppTextField(textController: emailController,
                     hintText: "Email",
                     icon: Icons.email),
+
+                SizedBox(height: Dimensions.height20,),
+
+                AppTextFieldPhone(textController: telephoneController,
+                    hintText: "Téléphone",
+                    icon: Icons.phone,
+                onChange: (phone){
+                  selectedTelephone=phone.completeNumber;
+                },),
                 SizedBox(height: Dimensions.height20,),
                 //Your password
                 AppTextField(textController: passwordController,
-                    hintText: "Password",
+                    hintText: "Mot de passe",
                     icon: Icons.password_sharp, isObscure: true,),
                 SizedBox(height: Dimensions.height20,),
                 //Your name
-                AppTextField(textController: nameController,
-                    hintText: "Name",
-                    icon: Icons.person),
+
+                AppSelectField(
+                  dialogTitle: 'Sélection de pays',
+                  dialogSearchHint:'Rechercher pays' ,
+                  hintText: "pays",
+                  textController:paysController ,
+                 icon: Icons.location_on_sharp,
+                  items: _authController.itemsPays,
+
+                ),
+
                 SizedBox(height: Dimensions.height20,),
                 //Your phone
-                AppTextField(textController: phoneController,
-                    hintText: "Phone",
-                    icon: Icons.phone),
+
+                AppSelectField(
+                  dialogTitle: 'Sélection genre',
+                  dialogSearchHint:'Rechercher genre' ,
+                  hintText: "Genre",
+                  textController:genreController ,
+                  icon: Icons.safety_divider,
+                  items: _itemsSexe,
+
+                ),
+
                 SizedBox(height: Dimensions.height20,),
 
                 //sign up button
@@ -159,7 +229,7 @@ class SignUpPage extends StatelessWidget {
                     ),
                     child: Center(
                       child: BigText(
-                        text: "Sign Up",
+                        text: "S'inscrire",
                         size: Dimensions.font20+Dimensions.font20/2,
                         color: Colors.white,
                       ),
@@ -170,7 +240,7 @@ class SignUpPage extends StatelessWidget {
                 //tag line
                 RichText(text: TextSpan(
                     recognizer: TapGestureRecognizer()..onTap=()=>Get.back(),
-                    text: "Have an account already?",
+                    text: "Vous avez déjà un compte ?",
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontSize: Dimensions.font20
@@ -179,25 +249,25 @@ class SignUpPage extends StatelessWidget {
 
                 SizedBox(height: Dimensions.screenHeight*0.05,),
                 //sign up options
-                RichText(text: TextSpan(
-                    text: "Sign up using on of the following methods",
-                    style: TextStyle(
-                        color: Colors.grey[500],
-                        fontSize: Dimensions.font16
-                    )
-                )),
-                Wrap(
-                  children: List.generate(3, (index) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      radius: Dimensions.radius30,
-                      backgroundImage: AssetImage(
-                          "assets/image/"+signUpImages[index]
-                      ),
-                    ),
-                  )),
-
-                )
+                // RichText(text: TextSpan(
+                //     text: "Sign up using on of the following methods",
+                //     style: TextStyle(
+                //         color: Colors.grey[500],
+                //         fontSize: Dimensions.font16
+                //     )
+                // )),
+                // Wrap(
+                //   children: List.generate(3, (index) => Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: CircleAvatar(
+                //       radius: Dimensions.radius30,
+                //       backgroundImage: AssetImage(
+                //           "assets/image/"+signUpImages[index]
+                //       ),
+                //     ),
+                //   )),
+                //
+                // )
 
               ],
             ),

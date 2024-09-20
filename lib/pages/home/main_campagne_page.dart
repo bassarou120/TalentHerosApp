@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:talentherosapp/controllers/auth_controller.dart';
+import 'package:talentherosapp/routes/route_helper.dart';
 import 'package:talentherosapp/utils/app_constants.dart';
 import 'package:talentherosapp/widgets/big_text.dart';
 import 'package:talentherosapp/widgets/small_text.dart';
@@ -27,6 +29,13 @@ class _MainCampagnePageState extends State<MainCampagnePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
+    if(_userLoggedIn){
+      // Get.find<UserController>().getUserInfo();
+      Get.offNamed(RouteHelper.getSignInPage());
+    }
+
     return RefreshIndicator(
         child:Column(
       children: [

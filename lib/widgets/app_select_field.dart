@@ -1,24 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl_phone_field/phone_number.dart';
+import 'package:select_form_field/select_form_field.dart';
 
 import '../utils/colors.dart';
 import '../utils/dimensions.dart';
 
-class AppTextFieldPhone extends StatelessWidget {
+class AppSelectField extends StatelessWidget {
   final TextEditingController textController;
   final String hintText;
   final IconData icon;
+  List<Map<String, dynamic>> items;
+  String dialogTitle;
+  String dialogSearchHint;
   bool isObscure;
   bool maxLines;
-  final ValueChanged<PhoneNumber>?  onChange ;
-  AppTextFieldPhone({Key? key,
+  AppSelectField({Key? key,
 
   required this.textController,
   required this.hintText,
   required this.icon,
-    this.onChange ,
+  required this.items,
+  required this.dialogTitle,
+  required this.dialogSearchHint,
     this.isObscure=false,
   this.maxLines=false}) : super(key: key);
 
@@ -38,21 +42,28 @@ class AppTextFieldPhone extends StatelessWidget {
               )
             ]
         ),
-        child:IntlPhoneField(
-
-          decoration: InputDecoration(
-            labelText: hintText,
-            border: OutlineInputBorder(
-              borderSide: BorderSide(),
-            ),
-          ),
-          initialCountryCode: 'BJ',
+        child:   SelectFormField(
+          type: SelectFormFieldType.dialog,
           controller: textController,
-          onChanged: onChange,
-          // onChanged: (phone) {
-          //   print(phone.completeNumber);
-          // },
-        )
+          //initialValue: _initialValue,
+          icon: Icon(icon, color: AppColors.yellowColor,),
+            // Icon(Icons.format_shapes),
+          labelText: hintText,
+          changeIcon: false,
+          enableSuggestions: true,
+          dialogTitle: 'Sélection de pays',
+          dialogCancelBtn: 'Annuler',
+          enableSearch: true,
+          dialogSearchHint: 'Rechercher pays',
+          items: items,
+
+          onChanged: (val) => print(val),
+          validator: (val) {
+            print(val);
+            return null;
+          },
+          onSaved: (val) =>  print(val),
+        ),
 
 /*
         TextField(

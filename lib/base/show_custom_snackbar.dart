@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:talentherosapp/widgets/big_text.dart';
 void showCustomSnackBar(
-    String message, {bool isError=true,String title="Error"}){
+    String message, {bool isError=true,String title="Error",duree=5}){
     Get.snackbar(title, message,
     titleText: BigText(text: title, color: Colors.white,),
       messageText: Text(message, style: const TextStyle(
@@ -11,6 +11,7 @@ void showCustomSnackBar(
       ),
         colorText: Colors.white,
         snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.redAccent
+        backgroundColor: Colors.redAccent,
+      duration: Duration(seconds:duree)
     );
 }

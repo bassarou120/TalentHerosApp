@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:talentherosapp/controllers/auth_controller.dart';
 import 'package:talentherosapp/pages/account/account_page.dart';
 import 'package:talentherosapp/pages/home/main_campagne_page.dart';
+import 'package:talentherosapp/routes/route_helper.dart';
 // import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 // import 'package:talentherosapp/pages/auth/sign_up_page.dart';
 // import 'package:talentherosapp/pages/cart/cart_history.dart';
@@ -81,6 +85,10 @@ setState(() {
 
   @override
   Widget build(BuildContext context) {
+
+
+
+
     return Scaffold(
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

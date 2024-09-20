@@ -17,7 +17,10 @@ class CampagneDescriptionPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.mainColor,
+        title: Text("Campagne",
+        style: TextStyle(color: Colors.white),),
+        // backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           onPressed: () => Get.back(),
@@ -41,7 +44,7 @@ class CampagneDescriptionPage extends StatelessWidget {
               width: double.infinity,
               child: Image.network(
                 '${AppConstants.BASE_URL}${AppConstants.UPLOAD_URL}${campagne.image}',
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
 
@@ -102,6 +105,37 @@ class CampagneDescriptionPage extends StatelessWidget {
                               SizedBox(width: Dimensions.width10),
                               Text(
                                 'Date de fin: ${campagne.date_fin}',
+                                style: TextStyle(fontSize: Dimensions.font16),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 15),
+                          Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.visibility,
+                                color:  AppColors.iconColor2 ,
+                                size: Dimensions.iconSize16,
+                              ),
+                              SizedBox(width: Dimensions.width10),
+                              Text(
+                                campagne.visibilite!,
+                                style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  // color: campagne.status == "EN COURS"
+                                  //     ? AppColors.ColorGreen:AppColors.ColorRead,
+                                ),
+                              ),
+                              SizedBox(width: Dimensions.width30),
+                              Icon(
+                                  Icons.access_time_rounded,
+                                  size: Dimensions.iconSize16,
+                                  color: AppColors.iconColor2
+                              ),
+                              SizedBox(width: Dimensions.width10),
+                              Text(
+                                'Date de debut: ${campagne.date_fin}',
                                 style: TextStyle(fontSize: Dimensions.font16),
                               ),
                             ],
@@ -168,7 +202,7 @@ class CampagneDescriptionPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Text(
-                    'Postuler',
+                    'Participer',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

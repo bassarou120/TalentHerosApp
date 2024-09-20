@@ -40,6 +40,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   intl_phone_field: ^3.2.0
+  select_field: ^1.1.0
+  select_form_field: ^2.2.0
+  toggle_switch: ^2.3.0
 
 dev_dependencies:
   flutter_test:
