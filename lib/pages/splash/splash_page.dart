@@ -33,16 +33,22 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
  @override
  void initState(){
    super.initState();
+
+
+
    _loadResources();
    controller =  AnimationController(vsync: this,duration: const Duration(seconds: 3))..forward();
-   animation =  CurvedAnimation(parent: controller, curve: Curves.linear);
+   animation =  CurvedAnimation(parent: controller, curve: Curves.bounceOut);
+
 
    Timer(const Duration(seconds: 5), () {
-     bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
 
+
+     bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
      if(_userLoggedIn){
        Get.offNamed(RouteHelper.getInitial());
      }else{
+
        Get.offNamed(RouteHelper.getSignInPage());
      }
 

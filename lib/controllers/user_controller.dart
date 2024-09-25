@@ -25,6 +25,7 @@ class UserController extends GetxController implements GetxService {
     Response response = await userRepo.getUserInfo();
     late ResponseModel responseModel;
     print("test"+response.body.toString());
+    responseModel = ResponseModel(true, "Successfully");
     if (response.statusCode == 200) {
       _userModel = UserModel.fromJson(response.body);
       _isLoading=true;

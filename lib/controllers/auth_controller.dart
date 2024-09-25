@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talentherosapp/data/repository/auth_repo.dart';
 import 'package:talentherosapp/models/pays_model.dart';
 import 'package:talentherosapp/models/signup_body_model.dart';
+import 'package:talentherosapp/utils/app_constants.dart';
 
 import '../models/response_model.dart';
 
 class AuthController extends GetxController implements GetxService {
   final AuthRepo authRepo;
+
 
   AuthController({
     required this.authRepo
@@ -30,10 +33,11 @@ class AuthController extends GetxController implements GetxService {
     Response response = await authRepo.registration(signUpBody);
     late ResponseModel responseModel;
     if (response.statusCode == 200) {
-      authRepo.saveUserToken(response.body["token"]);
+      // authRepo.saveUserToken(response.body["token"]);
       print("My token is "+ response.body["token"]);
       responseModel = ResponseModel(true, response.body["token"]);
     } else {
+      print(response.toString());
       responseModel = ResponseModel(false, response.statusText!);
     }
     _isLoading = false;
@@ -64,6 +68,8 @@ class AuthController extends GetxController implements GetxService {
     update();
     Response response = await authRepo.loginEmail(email, password);
     late ResponseModel responseModel;
+
+    // print(response.body["token"]);
     if (response.statusCode == 200) {
 
       authRepo.saveUserToken(response.body["token"]);
@@ -103,6 +109,11 @@ class AuthController extends GetxController implements GetxService {
 
   bool userLoggedIn(){
     return authRepo.userLoggedIn();
+  }
+
+   getUserToken(){
+     return  authRepo.getToken()??"None";
+    // return    authRepo.getUserToken();
   }
 
   bool clearSharedData(){

@@ -26,7 +26,7 @@ class AuthRepo{
   }
 
   Future <Response> loginPhone(String phone, String password) async{
-    return await apiClient.postData(AppConstants.LOGIN_URI, {"phone":phone, "password":password});
+    return await apiClient.postData(AppConstants.LOGIN_URI, {"telephone":phone, "password":password});
   }
 
   Future <Response> loginEmail(String email, String password) async{
@@ -41,6 +41,11 @@ class AuthRepo{
     apiClient.token = token;
     apiClient.updateHeader(token);
     return await sharedPreferences.setString(AppConstants.TOKEN, token);
+  }
+
+
+  String  getToken(){
+    return   sharedPreferences.get(AppConstants.TOKEN).toString();
   }
 
   Future<void> saveUserNumberAndPassword(String number, String password) async {

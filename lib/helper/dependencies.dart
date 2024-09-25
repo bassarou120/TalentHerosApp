@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:talentherosapp/controllers/auth_controller.dart';
 import 'package:talentherosapp/controllers/campagne_controller.dart';
+import 'package:talentherosapp/controllers/participation_controller.dart';
 import 'package:talentherosapp/controllers/user_controller.dart';
 import 'package:talentherosapp/data/api/api_client.dart';
 import 'package:talentherosapp/data/repository/auth_repo.dart';
 import 'package:talentherosapp/data/repository/campagne_repo.dart';
+import 'package:talentherosapp/data/repository/participation_repo.dart';
 import 'package:talentherosapp/data/repository/user_repo.dart';
 // import 'package:talentherosapp/controllers/auth_controller.dart';
 // import 'package:talentherosapp/controllers/order_controller.dart';
@@ -37,6 +39,7 @@ Future<void> init()async {
 
   //repos
   Get.lazyPut(()=>CampagneRepo (apiClient:Get.find()));
+  Get.lazyPut(()=>ParticipationRepo (apiClient:Get.find()));
   // Get.lazyPut(()=>PopularProductRepo(apiClient:Get.find()));
   // Get.lazyPut(()=>RecommendedProductRepo(apiClient:Get.find()));
   // Get.lazyPut(()=>CartRepo(sharedPreferences:Get.find()));
@@ -47,7 +50,10 @@ Future<void> init()async {
 
 
   //controllers
+
+  Get.lazyPut(()=>ParticipationController(participationRepo:Get.find()));
   Get.lazyPut(()=>CampagneController(campagneRepo:Get.find()));
+
   Get.lazyPut(()=>AuthController(authRepo: Get.find()));
   Get.lazyPut(()=>UserController(userRepo: Get.find()));
   // Get.lazyPut(()=>PopularProductController(popularProductRepo:Get.find()));

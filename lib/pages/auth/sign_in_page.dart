@@ -20,6 +20,8 @@ import '../../routes/route_helper.dart';
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 
+
+
   @override
   _SignInPageState createState() => _SignInPageState();
 }
@@ -33,7 +35,9 @@ class _SignInPageState extends State<SignInPage> {
   // Index for ToggleSwitch (email/phone)
   int indexMethode = 0;
   
-  String selectedPhone="";
+  String selectedPhode="";
+
+
 
   void _login(AuthController authController) {
     String phone = phoneController.text.trim();
@@ -66,8 +70,12 @@ class _SignInPageState extends State<SignInPage> {
       } else if (password.length < 6) {
         showCustomSnackBar("Le mot de passe ne peut pas contenir moins de six caractères", title: "Mot de passe");
       } else {
-        authController.loginPhone(selectedPhone, password).then((status) {
+
+        print(selectedPhode);
+        authController.loginPhone(selectedPhode, password).then((status) {
+
           if (status.isSuccess) {
+
             Get.toNamed(RouteHelper.getInitial());
           } else {
             showCustomSnackBar(status.message);
@@ -81,6 +89,8 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    Get.find<AuthController>().clearSharedData();
     return Scaffold(
       backgroundColor: Colors.white,
       body: GetBuilder<AuthController>(builder: (authController) {
@@ -89,7 +99,7 @@ class _SignInPageState extends State<SignInPage> {
           physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              SizedBox(height: Dimensions.screenHeight * 0.05),
+              SizedBox(height: Dimensions.screenHeight * 0.07),
               // App logo
               Container(
                 height: Dimensions.screenHeight * 0.25,
@@ -118,7 +128,7 @@ class _SignInPageState extends State<SignInPage> {
                     Text(
                       "Connectez-vous à votre compte",
                       style: TextStyle(
-                        fontSize: Dimensions.font20,
+                        fontSize: Dimensions.font16,
                         color: Colors.grey[500],
                       ),
                     ),
@@ -148,6 +158,7 @@ class _SignInPageState extends State<SignInPage> {
               SizedBox(height: Dimensions.height20),
 
               // Display email or phone based on indexMethode
+
               indexMethode == 0
                   ? AppTextField(
                 textController: emailController,
@@ -159,7 +170,11 @@ class _SignInPageState extends State<SignInPage> {
                 hintText: "Téléphone",
                 icon: Icons.phone,
                 onChange: (phone){
-                  selectedPhone=phone.completeNumber;
+                  setState(() {
+                    // indexMethode = index!;
+                    selectedPhode=phone.completeNumber;
+                  });
+
                 },
               ),
               SizedBox(height: Dimensions.height20),
@@ -188,7 +203,7 @@ class _SignInPageState extends State<SignInPage> {
                   child: Center(
                     child: BigText(
                       text: "Se connecter",
-                      size: Dimensions.font20 + Dimensions.font20 / 2,
+                      size: Dimensions.font16,
                       color: Colors.white,
                     ),
                   ),
@@ -202,7 +217,7 @@ class _SignInPageState extends State<SignInPage> {
                   text: "Vous n'avez pas de compte ?",
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: Dimensions.font20,
+                    fontSize: Dimensions.font16,
                   ),
                   children: [
                     TextSpan(

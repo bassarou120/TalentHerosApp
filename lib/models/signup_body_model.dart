@@ -2,7 +2,7 @@ class SignUpBody{
 
   String nom  ;
   String prenom  ;
-  String  email  ;
+  String email  ;
   String telephone  ;
   String password ;
   String pays ;

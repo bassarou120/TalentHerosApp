@@ -43,6 +43,16 @@ dependencies:
   select_field: ^1.1.0
   select_form_field: ^2.2.0
   toggle_switch: ^2.3.0
+  image_picker: ^1.1.2
+  video_player: ^2.9.1
+  intl: ^0.19.0
+  flutter_launcher_icons: ^0.14.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/image/logo_th_1.jpg"
+  min_sdk_android: 21
 
 dev_dependencies:
   flutter_test:

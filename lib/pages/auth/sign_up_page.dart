@@ -124,7 +124,7 @@ var selectedTelephone="";
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                SizedBox(height: Dimensions.screenHeight*0.05,),
+                SizedBox(height: Dimensions.screenHeight*0.07,),
                 //app logo
                 Container(
                   height: Dimensions.screenHeight*0.25,
@@ -153,7 +153,7 @@ var selectedTelephone="";
                 Text(
                   "Connectez-vous à votre compte",
                   style: TextStyle(
-                      fontSize: Dimensions.font20,
+                      fontSize: Dimensions.font16,
                       //fontWeight: FontWeight.bold
                       color: Colors.grey[500]
                   ),
@@ -230,7 +230,7 @@ var selectedTelephone="";
                     child: Center(
                       child: BigText(
                         text: "S'inscrire",
-                        size: Dimensions.font20+Dimensions.font20/2,
+                        size: Dimensions.font16,
                         color: Colors.white,
                       ),
                     ),

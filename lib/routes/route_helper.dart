@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:talentherosapp/pages/auth/sign_in_page.dart';
+import 'package:talentherosapp/pages/participation/participation_detail.dart';
 import 'package:talentherosapp/pages/splash/splash_page.dart';
 // import 'package:talentherosapp/pages/address/pick_address_map.dart';
 // import 'package:talentherosapp/pages/auth/sign_in_page.dart';
@@ -32,8 +33,10 @@ class RouteHelper {
   static const String payment='/payment';
   static const String orderSuccess='/order-successful';
   static const String campagneDescription = '/campagne-description';
+  static const String participationDetail = '/participation-detail';
 
   static String getCampagneDescription(int campagneId) => '$campagneDescription?id=$campagneId';
+  static String getParticipationDetail(int participationId) => '$participationDetail?id=$participationId';
   static String getSplashPage()=> '$splashPage';
   static String getInitial()=>'$initial';
   static String getSignInPage()=>'$signIn';
@@ -77,7 +80,17 @@ class RouteHelper {
     
     GetPage(name: signIn, page: (){
       return SignInPage();
-    }, transition: Transition.fade),
+    }, transition: Transition.upToDown),
+
+
+    GetPage(
+      name: participationDetail,
+      page: () {
+        final id = Get.parameters['id'];
+        return ParticipationDetail(participationId: int.parse(id ?? '0') );
+      },
+    ),
+
 
     // GetPage(name: popularFood, page:(){
     //   var pageId=Get.parameters['pageId'];

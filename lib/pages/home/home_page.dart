@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:talentherosapp/controllers/auth_controller.dart';
 import 'package:talentherosapp/pages/account/account_page.dart';
+import 'package:talentherosapp/pages/guagnants/guagnants_page.dart';
 import 'package:talentherosapp/pages/home/main_campagne_page.dart';
+import 'package:talentherosapp/pages/participation/participation_page.dart';
 import 'package:talentherosapp/routes/route_helper.dart';
 // import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 // import 'package:talentherosapp/pages/auth/sign_up_page.dart';
@@ -30,6 +32,9 @@ class _HomePageState extends State<HomePage> {
 
   List pages=[
     MainCampagnePage(),
+    ParticipationPage(),
+
+    GuagnantsPage(),
     // OrderPage(),
     // CartHistory(),
     AccountPage(),

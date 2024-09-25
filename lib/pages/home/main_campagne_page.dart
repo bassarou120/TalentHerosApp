@@ -30,11 +30,11 @@ class _MainCampagnePageState extends State<MainCampagnePage> {
   @override
   Widget build(BuildContext context) {
 
-    bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
-    if(_userLoggedIn){
-      // Get.find<UserController>().getUserInfo();
-      Get.offNamed(RouteHelper.getSignInPage());
-    }
+    // bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
+    // if(_userLoggedIn){
+    //   // Get.find<UserController>().getUserInfo();
+    //   Get.offNamed(RouteHelper.getSignInPage());
+    // }
 
     return RefreshIndicator(
         child:Column(

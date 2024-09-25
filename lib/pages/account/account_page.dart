@@ -57,9 +57,9 @@ class AccountPage extends StatelessWidget {
                           iconSize: Dimensions.height10*5/2,
                           size: Dimensions.height10*5,),
 
-                        bigText: BigText(text: userController.userModel!.name!,)
+                        bigText: BigText(text: userController.userModel!.name! + " "+userController.userModel!.first_name!,size: 16,)
                         ,),
-                      SizedBox(height: Dimensions.height20,),
+                      SizedBox(height: Dimensions.height10,),
                       //phone
                       AccountWidget(
                         appIcon :AppIcon(icon: Icons.phone,
@@ -68,9 +68,9 @@ class AccountPage extends StatelessWidget {
                           iconSize: Dimensions.height10*5/2,
                           size: Dimensions.height10*5,),
 
-                        bigText: BigText(text: userController.userModel!.telephone!,)
+                        bigText: BigText(text: userController.userModel!.telephone!,size: 16,)
                         ,),
-                      SizedBox(height: Dimensions.height20,),
+                      SizedBox(height: Dimensions.height10,),
                       //email
                       AccountWidget(
                         appIcon :AppIcon(icon: Icons.email,
@@ -79,9 +79,9 @@ class AccountPage extends StatelessWidget {
                           iconSize: Dimensions.height10*5/2,
                           size: Dimensions.height10*5,),
 
-                        bigText: BigText(text: userController.userModel!.email!,)
+                        bigText: BigText(text: userController.userModel!.email!,size: 14, overFlow: TextOverflow.clip,)
                         ,),
-                      SizedBox(height: Dimensions.height20,),
+                      SizedBox(height: Dimensions.height10,),
                       //address
                       /*
                       GetBuilder<LocationController>(builder: (locationController){
@@ -118,16 +118,16 @@ class AccountPage extends StatelessWidget {
                         }
                       }),
                      */
-                      SizedBox(height: Dimensions.height20,),
+                      SizedBox(height: Dimensions.height10,),
                       //message
                       AccountWidget(
-                        appIcon :AppIcon(icon: Icons.message_outlined,
+                        appIcon :AppIcon(icon: Icons.g_mobiledata_sharp,
                           backgroundColor: Colors.redAccent,
                           iconColor: Colors.white,
                           iconSize: Dimensions.height10*5/2,
                           size: Dimensions.height10*5,),
 
-                        bigText: BigText(text: "Messages",)
+                        bigText: BigText(text: userController.userModel!.sexe !,size: 16,)
                         ,),
                       SizedBox(height: Dimensions.height20,),
 
@@ -152,7 +152,7 @@ class AccountPage extends StatelessWidget {
                             iconSize: Dimensions.height10*5/2,
                             size: Dimensions.height10*5,),
 
-                          bigText: BigText(text: "Logout",)
+                          bigText: BigText(text: "Se deconnecter",)
                           ,),
                       ),
                       SizedBox(height: Dimensions.height20,),
@@ -176,7 +176,7 @@ class AccountPage extends StatelessWidget {
               height: Dimensions.height20*8,
               margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  borderRadius: BorderRadius.circular(Dimensions.radius15),
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage(

@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:talentherosapp/controllers/campagne_controller.dart';
 import 'package:talentherosapp/models/campagnes_model.dart';
 import 'package:talentherosapp/models/products_model.dart';
@@ -44,6 +45,19 @@ class _CampagnePageBodyState extends State<CampagnePageBody> {
   void dispose(){
     pageController.dispose();
     super.dispose();
+  }
+
+
+  String formatDate(DateTime date) {
+    // Formater la date dans le format jj/mm/aaaa
+    return DateFormat('dd/MM/yyyy').format(date);
+  }
+
+  String formatDateString(String dateString) {
+    // Formater la date dans le format jj/mm/aaaa
+
+    DateFormat format = DateFormat('dd/MM/yyyy');
+    return format.parse(dateString).toString();
   }
 
   @override
@@ -180,7 +194,7 @@ class _CampagnePageBodyState extends State<CampagnePageBody> {
                                         //     iconColor: AppColors.mainColor),
                                         IconAndTextWidget(icon: Icons.access_time_rounded,
                                             size: 8,
-                                            text:  top20capmage.campagneAllList[index].date_fin!,
+                                            text:  top20capmage.campagneAllList[index].date_fin!  ,
                                             iconColor: AppColors.iconColor2),
                                       ],
                                     )
@@ -278,7 +292,7 @@ class _CampagnePageBodyState extends State<CampagnePageBody> {
               ),
               child: Container(
                 padding: EdgeInsets.only(top: Dimensions.height15, left: 15, right: 15),
-                child: AppColumn(text:campagneEncours.titre!,nbr_particiapant: "0",expire_date: campagneEncours.date_fin!,visibilite:campagneEncours.visibilite! ,),
+                child: AppColumn(text:campagneEncours.titre!,nbr_particiapant: "0",expire_date:  campagneEncours.date_fin! ,visibilite:campagneEncours.visibilite! ,),
               ),
 
             ),
